@@ -1,0 +1,47 @@
+# Configmap для приложения
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: japanese-learning-app-config
+  namespace: dss
+data:
+  EXTERNAL_API_URL: "http://language-api-service:8000"
+  DATABASE_URL: "postgresql://username:password@japanese-learning-db-service:5432/database"
+
+# Configmap для базы данных
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: japanese-learning-db-config
+  namespace: dss
+data:
+  POSTGRES_USER: "username"
+  POSTGRES_PASSWORD: "password"
+  POSTGRES_DB: "database"
+
+# ConfigMap для сервиса оценки успеха
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: assessment-service-config
+  namespace: dss
+data:
+  EXTERNAL_SERVICE_URL: "http://language-api-service:8000"
+
+# ConfigMap для очереди уведомлений
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: notification-queue-config
+  namespace: dss
+data:
+  NOTIFICATION_QUEUE_URL: "http://notification-queue-service:5672/"
+
+# ConfigMap для внешнего API языковых данных
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: language-api-config
+  namespace: dss
+data:
+  LANGUAGE_API_URL: "http://external-language-api-service:8000"

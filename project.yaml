@@ -1,0 +1,115 @@
+# Japanese Learning App Deployment:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: language-learning-app-deployment
+  namespace: dss
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: language-learning-app
+  template:
+    metadata:
+      labels:
+        app: language-learning-app
+    spec:
+      containers:
+        - name: language-learning-app
+          image: image/language-learning-app:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: EXTERNAL_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: japanese-learning-app-config
+                  key: EXTERNAL_API_URL
+            - name: DATABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: japanese-learning-db-config
+                  key: DATABASE_URL
+          envFrom:
+            - secretRef:
+                name: japanese-learning-db-secret
+
+# Japanese Learning DB StatefulSet:
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: language-learning-db-statefulset
+  namespace: dss
+spec:
+  serviceName: language-learning-db-service
+  replicas: 1
+  selector:
+    matchLabels:
+      app: language-learning-db
+  template:
+    metadata:
+      labels:
+        app: language-learning-db
+    spec:
+      containers:
+        - name: language-learning-db
+          image: image/language-learning-db:latest
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: japanese-learning-db-config
+            - secretRef:
+                name: japanese-learning-db-secret
+
+# Notification Queue Deployment:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-queue-deployment
+  namespace: dss
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification-queue
+  template:
+    metadata:
+      labels:
+        app: notification-queue
+    spec:
+      containers:
+        - name: notification-queue
+          image: image/notification-queue:latest
+          ports:
+            - containerPort: 5672
+          envFrom:
+            - configMapRef:
+                name: notification-queue-config
+
+# Language API Deployment:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: language-api-deployment
+  namespace: dss
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: language-api
+  template:
+    metadata:
+      labels:
+        app: language-api
+    spec:
+      containers:
+        - name: language-api
+          image: image/language-api:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: language-api-config
+            - secretRef:
+                name: language-api-secret
