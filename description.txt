@@ -1,21 +1,18 @@
-Задание:
+Data Storage Systems: course assignment
 
-Придумать свою систему
+Design a system of your choice and describe its architecture.
 
-Описать её компоненты: из каких сервисов состоит и что каждый из них делает, имя образа 
+Deliverables:
+- Describe each service, its responsibility, and its container image name.
+- Draw a high-level design (HLD) diagram.
+- Include at least three services, external dependencies (REST APIs or data
+  sources), a database, and a message queue.
+- Describe services running outside Kubernetes: their ports, host placement,
+  and system requirements.
+- Use at least Deployment, Ingress, Service, ConfigMap, Secret, and Job or
+  CronJob resources.
+- Specify container resource requests and limits.
 
-Нарисовать диаграмму HLD 
-
-Система должна состоять:
-	не менее чем из 3-х сервисов
-	внешние зависимости (рест сервисы, источники данных)
-	БД
-	Очередь сообщений
-
-Описать сервисы которые будут вне K8S: на каком порту будут работать и на каком сервере с какими системными требованиями
-
-По меньшей мере использовать компоненты: Deployment, Ingress, Service, ConfigMap, Secret, Job  или  CronJob
-
-Не забыть про request и limit
-
-
+This file is an English translation of the original assignment. It describes
+course requirements, not a claim that every requirement is implemented in the
+checked-in manifests.
