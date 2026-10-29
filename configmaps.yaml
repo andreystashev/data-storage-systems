@@ -1,4 +1,4 @@
-# Configmap для приложения
+# Application configuration (example URLs and credentials only).
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -6,9 +6,10 @@ metadata:
   namespace: dss
 data:
   EXTERNAL_API_URL: "http://language-api-service:8000"
-  DATABASE_URL: "postgresql://username:password@japanese-learning-db-service:5432/database"
 
-# Configmap для базы данных
+---
+
+# Database configuration.
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -16,10 +17,11 @@ metadata:
   namespace: dss
 data:
   POSTGRES_USER: "username"
-  POSTGRES_PASSWORD: "password"
   POSTGRES_DB: "database"
 
-# ConfigMap для сервиса оценки успеха
+---
+
+# Proposed assessment service configuration (workload not supplied).
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -28,7 +30,9 @@ metadata:
 data:
   EXTERNAL_SERVICE_URL: "http://language-api-service:8000"
 
-# ConfigMap для очереди уведомлений
+---
+
+# Notification queue configuration.
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -37,7 +41,9 @@ metadata:
 data:
   NOTIFICATION_QUEUE_URL: "http://notification-queue-service:5672/"
 
-# ConfigMap для внешнего API языковых данных
+---
+
+# Language data API configuration.
 apiVersion: v1
 kind: ConfigMap
 metadata:

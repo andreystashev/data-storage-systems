@@ -1,3 +1,4 @@
+# Coursework example: image names are placeholders, not published application builds.
 # Japanese Learning App Deployment:
 apiVersion: apps/v1
 kind: Deployment
@@ -25,14 +26,11 @@ spec:
                 configMapKeyRef:
                   name: japanese-learning-app-config
                   key: EXTERNAL_API_URL
-            - name: DATABASE_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: japanese-learning-db-config
-                  key: DATABASE_URL
           envFrom:
             - secretRef:
                 name: japanese-learning-db-secret
+
+---
 
 # Japanese Learning DB StatefulSet:
 apiVersion: apps/v1
@@ -62,6 +60,8 @@ spec:
             - secretRef:
                 name: japanese-learning-db-secret
 
+---
+
 # Notification Queue Deployment:
 apiVersion: apps/v1
 kind: Deployment
@@ -86,6 +86,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: notification-queue-config
+
+---
 
 # Language API Deployment:
 apiVersion: apps/v1
